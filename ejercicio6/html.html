@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        canvas{
+            border-color: blue;
+            border-style: ridge;
+        }
+    </style>
+
+</head>
+<body>
+    <canvas id = "uno" width="200" height="200"></canvas>
+    <label for="tamanio">Ingrese et tamaño del cuadrado</label>
+    <input type="number" name="tamanio" id="tamanio">
+    <button onclick="cuadrados(tam.value)">Pulsa</button>
+    <br>
+    <canvas id = "cuatro" width="200" height="200"></canvas>
+    <label for="cuaCol">Ingrese et tamaño del cuadrado</label>
+    <input type="number" name="cuaCol" id="cuaCol">
+    <button onclick="cuadradosColores(cuaCol.value)">Pulsa</button>
+    <br>
+    <canvas id = "dos" width="200" height="200"></canvas>
+    <select id="elige" name="elige" onchange="posicionTriangulo()">
+        <option value="Picoarriba">Pico arriba</option>
+        <option value="Picoabajo">Pico abajo</option>
+        </select>
+    <br>
+    <canvas id = "tres" width="200" height="200"></canvas>
+    <label for="tamanioCir">Ingrese et tamaño del circulo</label>
+    <input type="number" name="tamanioCir" id="tamanioCir">
+    <button onclick="circulo(tamCir.value)">Pulsa</button>
+    <br>
+</body>
+
+<script>
+    let tam = document.getElementById("tamanio")
+    let tamCir = document.getElementById("tamanioCir")
+    let opcion = document.getElementById("elige")
+    let cuaCol = document.getElementById("cuaCol")
+
+
+    function cuadrados(tama){
+        let can = document.getElementById("uno")
+            let contexto = can.getContext("2d")
+            contexto.clearRect(0,0,200,200)
+            contexto.beginPath()
+
+            for (let i = 0; i < 22; i++) {
+                if(i == 0){
+                    contexto.fillRect(10, 10, tama, tama)
+                }
+                else{
+                    texto = i;
+                    texto += "0"
+                    contexto.fillRect(parseInt(texto), 10, tama, tama)
+                }
+
+            }
+    }
+
+    function cuadradosColores(tama){
+        let can = document.getElementById("cuatro")
+            let contexto = can.getContext("2d")
+            contexto.clearRect(0,0,200,200)
+            let texto = "";
+            let colores = ["red", "blue", "orange", "purple", "green", "yellow", "gray", "black"]
+            contexto.beginPath()
+
+            for (let i = 0; i < 22; i++) {
+                if(i == 0){
+                    contexto.fillRect(10, 10, tama, tama)
+                }
+                else{
+                    texto = i;
+                    texto += "0"
+                    contexto.fillStyle = colores[Math.floor(Math.random() * colores.length - 1)]
+                    contexto.fillRect(parseInt(texto), 10, tama, tama)
+                }
+
+            }
+    }
+
+    
+
+    function trianguloAbajo(){
+        let can = document.getElementById("dos")
+        let contexto = can.getContext("2d")
+        contexto.clearRect(0,0,200,200)
+            contexto.moveTo(20, 20);
+            contexto.lineTo(110, 20)
+            contexto.stroke()
+            contexto.moveTo(20, 20);
+            contexto.lineTo(70, 100)
+            contexto.stroke()
+            contexto.moveTo(70, 100);
+            contexto.lineTo(110, 20)
+            contexto.stroke()
+    }
+
+    function trianguloArriba(){
+            let can = document.getElementById("dos")
+            let contexto = can.getContext("2d")
+            contexto.clearRect(0,0,200,200)
+            contexto.beginPath();
+            contexto.moveTo(20, 185);
+            contexto.lineTo(110, 185)
+            contexto.stroke()
+            contexto.moveTo(20, 185);
+            contexto.lineTo(70, 105)
+            contexto.stroke()
+            contexto.moveTo(70, 105);
+            contexto.lineTo(110, 185)
+            contexto.stroke()
+    }
+
+    function posicionTriangulo(){
+        let can = document.getElementById("dos")
+        let contexto = can.getContext("2d")
+        contexto.clearRect(0,0,200,200)
+        console.log(opcion.options[opcion.selectedIndex].text)
+        switch(opcion.options[opcion.selectedIndex].text){
+            case "Pico arriba": 
+                trianguloArriba()
+                break;
+            case "Pico abajo":
+                trianguloAbajo()
+                break;
+        }
+    }
+
+    function circulo(x){
+        let can = document.getElementById("tres")
+        let contexto = can.getContext("2d")
+        contexto.clearRect(0,0,200,200)
+        contexto.beginPath();
+        contexto.arc(100, 100, x, 0, 2 * Math.PI);
+        contexto.stroke()
+    }
+
+</script>
+
+</html>
